@@ -11,12 +11,12 @@ def parent_directory():
     # Create a relative path to the parent
     # of the current working directory
     rel_path = str(os.getcwd())
-    relative_parent = os.path.join("../"+str(rel_path), rel_path)
+    print(rel_path)
+    os.chdir("../")
+    relative_parent = os.getcwd()
 
     # Return the absolute path of the parent directory
-    # os.pardir
     return relative_parent
 
 
-print("\n\n")
 print(parent_directory())
