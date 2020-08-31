@@ -1,5 +1,5 @@
 import math
-
+# defining functions
 def triangle(base, height):
     return base*height/2
 
