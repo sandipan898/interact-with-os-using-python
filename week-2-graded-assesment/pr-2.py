@@ -1,28 +1,33 @@
-"""
-2.
-Question 2
-The new_directory function creates a new directory inside 
-the current working directory, then creates a new empty 
-file inside the new directory, and returns the list of 
-files in that directory. Fill in the gaps to create a 
-file "script.py" in the directory "PythonPrograms"
-"""
-
 import os
+import csv
 
+# Create a file with data in it
+def create_file(filename):
+  with open(filename, "w") as file:
+    file.write("name,color,type\n")
+    file.write("carnation,pink,annual\n")
+    file.write("daffodil,yellow,perennial\n")
+    file.write("iris,blue,perennial\n")
+    file.write("poinsettia,red,perennial\n")
+    file.write("sunflower,yellow,annual\n")
 
-def new_directory(directory, filename):
-    # Before creating a new directory, check to see if it already exists
-    if os.path.isdir(directory) == False:
-        os.mkdir(directory)
+# Read the file contents and format the information about each row
+def contents_of_file(filename):
+  return_string = ""
 
-    # Create the new file inside of the new directory
-    os.chdir(directory)
-    with open(filename, "w") as file:
-        pass
+  # Call the function to create the file 
+  create_file(filename)
+  # Open the file
+  with open(filename, "r") as f:  
+    # Read the rows of the file
+    rows = csv.reader(f)
+    # Process each row 
+    for row in list(rows)[1:]:
+      name, color, type_ = row
+      # Format the return string for data rows only
+      
+      return_string += "a {} {} is {}\n".format(color, name, type_)
+  return return_string
 
-    # Return the list of files in the new directory
-    return os.listdir()
-
-
-print(new_directory("PythonPrograms", "script.py"))
+#Call the function
+print(contents_of_file("flowers.csv"))

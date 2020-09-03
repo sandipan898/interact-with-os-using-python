@@ -1,22 +1,37 @@
 """
 1.
 Question 1
-The create_python_script function creates a 
-new python script in the current working directory, 
-adds the line of comments to it declared by the 
-'comments' variable, and returns the size of the new 
-file. Fill in the gaps to create a script called "program.py"
+We're working with a list of flowers and some information about each one. The create_file function writes this information to a CSV file. The contents_of_file function reads this file into records and returns the information in a nicely formatted block. Fill in the gaps of the contents_of_file function to turn the data in the CSV file into a dictionary using DictReader.
 """
 
 import os
+import csv
 
+# Create a file with data in it
+def create_file(filename):
+  with open(filename, "w") as file:
+    file.write("name,color,type\n")
+    file.write("carnation,pink,annual\n")
+    file.write("daffodil,yellow,perennial\n")
+    file.write("iris,blue,perennial\n")
+    file.write("poinsettia,red,perennial\n")
+    file.write("sunflower,yellow,annual\n")
 
-def create_python_script(filename):
-    comments = "# Start of a new Python program"
-    with open(filename, "w") as f:
-        f.write(comments)
-        filesize = os.path.getsize(filename)
-    return(filesize)
+# Read the file contents and format the information about each row
+def contents_of_file(filename):
+  return_string = ""
 
+  # Call the function to create the file 
+  create_file(filename)
 
-print(create_python_script("program.py"))
+  # Open the file
+  with open(filename, "r") as f:
+    # Read the rows of the file into a dictionary
+    file_dict = csv.DictReader(f)
+    # Process each item of the dictionary
+    for row in file_dict:
+      return_string += "a {} {} is {}\n".format(row["color"], row["name"], row["type"])
+  return return_string
+
+#Call the function
+print(contents_of_file("flowers.csv"))
